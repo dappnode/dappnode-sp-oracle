@@ -33,10 +33,17 @@ type httpOkStatus struct {
 }
 
 type httpOkRelayersState struct {
+	ValPubKey            string      `json:"valpubkey"`
 	CorrectFeeRecipients bool        `json:"correct_fee_recipients"`
 	CorrectFeeRelays     []httpRelay `json:"correct_fee_relayers"`
 	WrongFeeRelays       []httpRelay `json:"wrong_fee_relayers"`
 	UnregisteredRelays   []httpRelay `json:"unregistered_relayers"`
+}
+
+type httpOkMultiRelayersState struct {
+	Validators           []httpOkRelayersState `json:"validators"`
+	AllValidatorsCorrect bool                  `json:"all_validators_correct"`
+	IncorrectValidators  []string              `json:"incorrect_validators"`
 }
 
 type httpRelay struct {
@@ -138,6 +145,12 @@ type httpOkValidatorInfo struct {
 	ValidatorIndex        uint64 `json:"validator_index"`
 	ValidatorKey          string `json:"validator_key"`
 	SubscriptionType      string `json:"subscription_type"`
+}
+
+type validatorRelayResult struct {
+	ValidatorResult  httpOkRelayersState
+	IsValidatorValid bool
+	Err              error
 }
 
 // Subscription event and the associated validator (if any)
