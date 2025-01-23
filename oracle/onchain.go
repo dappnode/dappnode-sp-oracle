@@ -357,7 +357,6 @@ func (o *Onchain) GetSetOfValidators(valIndices []phase0.ValidatorIndex, slot st
 		return nil, errors.New("Error: no validators found onchain for the given indices")
 	}
 
-
 	// Sanity checks - Ensure all requested validators are found
 	for _, idx := range valIndices {
 		if _, found := validators.Data[idx]; !found {
@@ -367,7 +366,6 @@ func (o *Onchain) GetSetOfValidators(valIndices []phase0.ValidatorIndex, slot st
 
 	return validators.Data, nil
 }
-
 
 func (o *Onchain) BlockByNumber(blockNumber *big.Int, opts ...retry.Option) (*types.Block, error) {
 	var err error
@@ -919,6 +917,16 @@ func (o *Onchain) FetchFullBlock(slot uint64, oracle *Oracle, opt ...bool) *Full
 			log.Fatal("failed getting update subscription collateral events: ", err)
 		}
 
+		banValidator, err := o.GetBanValidatorEvents(fullBlock.GetBlockNumber())
+		if err != nil {
+			log.Fatal("failed getting ban validator events: ", err)
+		}
+
+		unbanValidator, err := o.GetUnbanValidatorEvents(fullBlock.GetBlockNumber())
+		if err != nil {
+			log.Fatal("failed getting unban validator events: ", err)
+		}
+
 		// Not all events are fetched as they are not needed
 		events := &Events{
 			EtherReceived:      etherReceived,
@@ -938,6 +946,8 @@ func (o *Onchain) FetchFullBlock(slot uint64, oracle *Oracle, opt ...bool) *Full
 			//RemoveOracleMember: removeOracleMember,
 			//TransferGovernance: transferGovernance,
 			//AcceptGovernance: acceptGovernance,
+			BanValidator:   banValidator,
+			UnbanValidator: unbanValidator,
 		}
 
 		// Add the events to the block
@@ -1298,6 +1308,78 @@ func (o *Onchain) GetUnsubscribeValidatorEvents(
 	err = itr.Close()
 	if err != nil {
 		return nil, errors.Wrap(err, "could not close UnsubscribeValidator iterator")
+	}
+	return events, nil
+}
+
+func (o *Onchain) GetBanValidatorEvents(
+	blockNumber uint64,
+	opts ...retry.Option) ([]*contract.ContractBanValidator, error) {
+
+	startBlock := uint64(blockNumber)
+	endBlock := uint64(blockNumber)
+
+	filterOpts := &bind.FilterOpts{Context: context.Background(), Start: startBlock, End: &endBlock}
+
+	var err error
+	var itr *contract.ContractBanValidatorIterator
+
+	err = retry.Do(func() error {
+		itr, err = o.Contract.FilterBanValidator(filterOpts)
+		if err != nil {
+			log.Warn("Failed attempt GetBanValidatorEvents for block ", strconv.FormatUint(blockNumber, 10), ": ", err.Error(), " Retrying...")
+			return err
+		}
+		return nil
+	}, o.GetRetryOpts(opts)...)
+
+	if err != nil {
+		return nil, errors.Wrap(err, "could not get BanValidator events")
+	}
+
+	var events []*contract.ContractBanValidator
+	for itr.Next() {
+		events = append(events, itr.Event)
+	}
+	err = itr.Close()
+	if err != nil {
+		return nil, errors.Wrap(err, "could not close BanValidator iterator")
+	}
+	return events, nil
+}
+
+func (o *Onchain) GetUnbanValidatorEvents(
+	blockNumber uint64,
+	opts ...retry.Option) ([]*contract.ContractUnbanValidator, error) {
+
+	startBlock := uint64(blockNumber)
+	endBlock := uint64(blockNumber)
+
+	filterOpts := &bind.FilterOpts{Context: context.Background(), Start: startBlock, End: &endBlock}
+
+	var err error
+	var itr *contract.ContractUnbanValidatorIterator
+
+	err = retry.Do(func() error {
+		itr, err = o.Contract.FilterUnbanValidator(filterOpts)
+		if err != nil {
+			log.Warn("Failed attempt GetUnbanValidatorEvents for block ", strconv.FormatUint(blockNumber, 10), ": ", err.Error(), " Retrying...")
+			return err
+		}
+		return nil
+	}, o.GetRetryOpts(opts)...)
+
+	if err != nil {
+		return nil, errors.Wrap(err, "could not get UnbanValidator events")
+	}
+
+	var events []*contract.ContractUnbanValidator
+	for itr.Next() {
+		events = append(events, itr.Event)
+	}
+	err = itr.Close()
+	if err != nil {
+		return nil, errors.Wrap(err, "could not close UnbanValidator iterator")
 	}
 	return events, nil
 }

@@ -31,7 +31,7 @@ var (
 
 // ContractMetaData contains all meta data concerning the Contract contract.
 var ContractMetaData = &bind.MetaData{
-	ABI: "[{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"newGovernance\",\"type\":\"address\"}],\"name\":\"AcceptGovernance\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"newOracleMember\",\"type\":\"address\"}],\"name\":\"AddOracleMember\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"withdrawalAddress\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"rewardAddress\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"claimableBalance\",\"type\":\"uint256\"}],\"name\":\"ClaimRewards\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"donationAmount\",\"type\":\"uint256\"}],\"name\":\"EtherReceived\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"initialSmoothingPoolSlot\",\"type\":\"uint64\"}],\"name\":\"InitSmoothingPool\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint8\",\"name\":\"version\",\"type\":\"uint8\"}],\"name\":\"Initialized\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"oracleMemberRemoved\",\"type\":\"address\"}],\"name\":\"RemoveOracleMember\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"slotNumber\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"bytes32\",\"name\":\"newRewardsRoot\",\"type\":\"bytes32\"}],\"name\":\"ReportConsolidated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"withdrawalAddress\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"poolRecipient\",\"type\":\"address\"}],\"name\":\"SetRewardRecipient\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"slotNumber\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"bytes32\",\"name\":\"newRewardsRoot\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"oracleMember\",\"type\":\"address\"}],\"name\":\"SubmitReport\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"subscriptionCollateral\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"validatorID\",\"type\":\"uint64\"}],\"name\":\"SubscribeValidator\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"newPendingGovernance\",\"type\":\"address\"}],\"name\":\"TransferGovernance\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"validatorID\",\"type\":\"uint64\"}],\"name\":\"UnsubscribeValidator\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"newCheckpointSlotSize\",\"type\":\"uint64\"}],\"name\":\"UpdateCheckpointSlotSize\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"newPoolFee\",\"type\":\"uint256\"}],\"name\":\"UpdatePoolFee\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"newPoolFeeRecipient\",\"type\":\"address\"}],\"name\":\"UpdatePoolFeeRecipient\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"newQuorum\",\"type\":\"uint64\"}],\"name\":\"UpdateQuorum\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"newSubscriptionCollateral\",\"type\":\"uint256\"}],\"name\":\"UpdateSubscriptionCollateral\",\"type\":\"event\"},{\"stateMutability\":\"payable\",\"type\":\"fallback\"},{\"inputs\":[],\"name\":\"INITIAL_REPORT_HASH\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"acceptGovernance\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOracleMember\",\"type\":\"address\"}],\"name\":\"addOracleMember\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"addressToVotedReportHash\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"checkpointSlotSize\",\"outputs\":[{\"internalType\":\"uint64\",\"name\":\"\",\"type\":\"uint64\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"withdrawalAddress\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"accumulatedBalance\",\"type\":\"uint256\"},{\"internalType\":\"bytes32[]\",\"name\":\"merkleProof\",\"type\":\"bytes32[]\"}],\"name\":\"claimRewards\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"claimedBalance\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"deploymentBlockNumber\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getAllOracleMembers\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"\",\"type\":\"address[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"oracleMember\",\"type\":\"address\"}],\"name\":\"getOracleMemberIndex\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getOracleMembersCount\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint64\",\"name\":\"_slot\",\"type\":\"uint64\"},{\"internalType\":\"bytes32\",\"name\":\"_rewardsRoot\",\"type\":\"bytes32\"}],\"name\":\"getReportHash\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"pure\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"governance\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint64\",\"name\":\"initialSmoothingPoolSlot\",\"type\":\"uint64\"}],\"name\":\"initSmoothingPool\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_governance\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_subscriptionCollateral\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_poolFee\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"_poolFeeRecipient\",\"type\":\"address\"},{\"internalType\":\"uint64\",\"name\":\"_checkpointSlotSize\",\"type\":\"uint64\"},{\"internalType\":\"uint64\",\"name\":\"_quorum\",\"type\":\"uint64\"}],\"name\":\"initialize\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"lastConsolidatedSlot\",\"outputs\":[{\"internalType\":\"uint64\",\"name\":\"\",\"type\":\"uint64\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"oracleMembers\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"pendingGovernance\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"poolFee\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"poolFeeRecipient\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"quorum\",\"outputs\":[{\"internalType\":\"uint64\",\"name\":\"\",\"type\":\"uint64\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"oracleMemberAddress\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"oracleMemberIndex\",\"type\":\"uint256\"}],\"name\":\"removeOracleMember\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"reportHashToReport\",\"outputs\":[{\"internalType\":\"uint64\",\"name\":\"slot\",\"type\":\"uint64\"},{\"internalType\":\"uint64\",\"name\":\"votes\",\"type\":\"uint64\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"rewardRecipient\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"rewardsRoot\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"rewardAddress\",\"type\":\"address\"}],\"name\":\"setRewardRecipient\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint64\",\"name\":\"slotNumber\",\"type\":\"uint64\"},{\"internalType\":\"bytes32\",\"name\":\"proposedRewardsRoot\",\"type\":\"bytes32\"}],\"name\":\"submitReport\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint64\",\"name\":\"validatorID\",\"type\":\"uint64\"}],\"name\":\"subscribeValidator\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint64[]\",\"name\":\"validatorIDArray\",\"type\":\"uint64[]\"}],\"name\":\"subscribeValidators\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"subscriptionCollateral\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newPendingGovernance\",\"type\":\"address\"}],\"name\":\"transferGovernance\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint64\",\"name\":\"validatorID\",\"type\":\"uint64\"}],\"name\":\"unsubscribeValidator\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint64\",\"name\":\"newCheckpointSlotSize\",\"type\":\"uint64\"}],\"name\":\"updateCheckpointSlotSize\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"newSubscriptionCollateral\",\"type\":\"uint256\"}],\"name\":\"updateCollateral\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"newPoolFee\",\"type\":\"uint256\"}],\"name\":\"updatePoolFee\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newPoolFeeRecipient\",\"type\":\"address\"}],\"name\":\"updatePoolFeeRecipient\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint64\",\"name\":\"newQuorum\",\"type\":\"uint64\"}],\"name\":\"updateQuorum\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]",
+	ABI: "[{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"newGovernance\",\"type\":\"address\"}],\"name\":\"AcceptGovernance\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"newOracleMember\",\"type\":\"address\"}],\"name\":\"AddOracleMember\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"validatorID\",\"type\":\"uint64\"}],\"name\":\"BanValidator\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"withdrawalAddress\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"rewardAddress\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"claimableBalance\",\"type\":\"uint256\"}],\"name\":\"ClaimRewards\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"donationAmount\",\"type\":\"uint256\"}],\"name\":\"EtherReceived\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"initialSmoothingPoolSlot\",\"type\":\"uint64\"}],\"name\":\"InitSmoothingPool\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint8\",\"name\":\"version\",\"type\":\"uint8\"}],\"name\":\"Initialized\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"oracleMemberRemoved\",\"type\":\"address\"}],\"name\":\"RemoveOracleMember\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"slotNumber\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"bytes32\",\"name\":\"newRewardsRoot\",\"type\":\"bytes32\"}],\"name\":\"ReportConsolidated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"withdrawalAddress\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"poolRecipient\",\"type\":\"address\"}],\"name\":\"SetRewardRecipient\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"slotNumber\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"bytes32\",\"name\":\"newRewardsRoot\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"oracleMember\",\"type\":\"address\"}],\"name\":\"SubmitReport\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"subscriptionCollateral\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"validatorID\",\"type\":\"uint64\"}],\"name\":\"SubscribeValidator\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"newPendingGovernance\",\"type\":\"address\"}],\"name\":\"TransferGovernance\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"validatorID\",\"type\":\"uint64\"}],\"name\":\"UnbanValidator\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"validatorID\",\"type\":\"uint64\"}],\"name\":\"UnsubscribeValidator\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"newCheckpointSlotSize\",\"type\":\"uint64\"}],\"name\":\"UpdateCheckpointSlotSize\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"newPoolFee\",\"type\":\"uint256\"}],\"name\":\"UpdatePoolFee\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"newPoolFeeRecipient\",\"type\":\"address\"}],\"name\":\"UpdatePoolFeeRecipient\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"newQuorum\",\"type\":\"uint64\"}],\"name\":\"UpdateQuorum\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"newSubscriptionCollateral\",\"type\":\"uint256\"}],\"name\":\"UpdateSubscriptionCollateral\",\"type\":\"event\"},{\"stateMutability\":\"payable\",\"type\":\"fallback\"},{\"inputs\":[],\"name\":\"INITIAL_REPORT_HASH\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"acceptGovernance\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOracleMember\",\"type\":\"address\"}],\"name\":\"addOracleMember\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"addressToVotedReportHash\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint64[]\",\"name\":\"validatorIDArray\",\"type\":\"uint64[]\"}],\"name\":\"banValidators\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"checkpointSlotSize\",\"outputs\":[{\"internalType\":\"uint64\",\"name\":\"\",\"type\":\"uint64\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"withdrawalAddress\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"accumulatedBalance\",\"type\":\"uint256\"},{\"internalType\":\"bytes32[]\",\"name\":\"merkleProof\",\"type\":\"bytes32[]\"}],\"name\":\"claimRewards\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"claimedBalance\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"deploymentBlockNumber\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getAllOracleMembers\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"\",\"type\":\"address[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"oracleMember\",\"type\":\"address\"}],\"name\":\"getOracleMemberIndex\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getOracleMembersCount\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint64\",\"name\":\"_slot\",\"type\":\"uint64\"},{\"internalType\":\"bytes32\",\"name\":\"_rewardsRoot\",\"type\":\"bytes32\"}],\"name\":\"getReportHash\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"pure\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"governance\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint64\",\"name\":\"initialSmoothingPoolSlot\",\"type\":\"uint64\"}],\"name\":\"initSmoothingPool\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_governance\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_subscriptionCollateral\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_poolFee\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"_poolFeeRecipient\",\"type\":\"address\"},{\"internalType\":\"uint64\",\"name\":\"_checkpointSlotSize\",\"type\":\"uint64\"},{\"internalType\":\"uint64\",\"name\":\"_quorum\",\"type\":\"uint64\"}],\"name\":\"initialize\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"lastConsolidatedSlot\",\"outputs\":[{\"internalType\":\"uint64\",\"name\":\"\",\"type\":\"uint64\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"oracleMembers\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"pendingGovernance\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"poolFee\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"poolFeeRecipient\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"quorum\",\"outputs\":[{\"internalType\":\"uint64\",\"name\":\"\",\"type\":\"uint64\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"oracleMemberAddress\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"oracleMemberIndex\",\"type\":\"uint256\"}],\"name\":\"removeOracleMember\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"reportHashToReport\",\"outputs\":[{\"internalType\":\"uint64\",\"name\":\"slot\",\"type\":\"uint64\"},{\"internalType\":\"uint64\",\"name\":\"votes\",\"type\":\"uint64\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"rewardRecipient\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"rewardsRoot\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"rewardAddress\",\"type\":\"address\"}],\"name\":\"setRewardRecipient\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint64\",\"name\":\"slotNumber\",\"type\":\"uint64\"},{\"internalType\":\"bytes32\",\"name\":\"proposedRewardsRoot\",\"type\":\"bytes32\"}],\"name\":\"submitReport\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint64\",\"name\":\"validatorID\",\"type\":\"uint64\"}],\"name\":\"subscribeValidator\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint64[]\",\"name\":\"validatorIDArray\",\"type\":\"uint64[]\"}],\"name\":\"subscribeValidators\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"subscriptionCollateral\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newPendingGovernance\",\"type\":\"address\"}],\"name\":\"transferGovernance\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint64[]\",\"name\":\"validatorIDArray\",\"type\":\"uint64[]\"}],\"name\":\"unbanValidators\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint64\",\"name\":\"validatorID\",\"type\":\"uint64\"}],\"name\":\"unsubscribeValidator\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint64[]\",\"name\":\"validatorIDArray\",\"type\":\"uint64[]\"}],\"name\":\"unsubscribeValidators\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint64\",\"name\":\"newCheckpointSlotSize\",\"type\":\"uint64\"}],\"name\":\"updateCheckpointSlotSize\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"newSubscriptionCollateral\",\"type\":\"uint256\"}],\"name\":\"updateCollateral\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"newPoolFee\",\"type\":\"uint256\"}],\"name\":\"updatePoolFee\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newPoolFeeRecipient\",\"type\":\"address\"}],\"name\":\"updatePoolFeeRecipient\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint64\",\"name\":\"newQuorum\",\"type\":\"uint64\"}],\"name\":\"updateQuorum\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]",
 }
 
 // ContractABI is the input ABI used to generate the binding from.
@@ -887,6 +887,27 @@ func (_Contract *ContractTransactorSession) AddOracleMember(newOracleMember comm
 	return _Contract.Contract.AddOracleMember(&_Contract.TransactOpts, newOracleMember)
 }
 
+// BanValidators is a paid mutator transaction binding the contract method 0x17a6863f.
+//
+// Solidity: function banValidators(uint64[] validatorIDArray) returns()
+func (_Contract *ContractTransactor) BanValidators(opts *bind.TransactOpts, validatorIDArray []uint64) (*types.Transaction, error) {
+	return _Contract.contract.Transact(opts, "banValidators", validatorIDArray)
+}
+
+// BanValidators is a paid mutator transaction binding the contract method 0x17a6863f.
+//
+// Solidity: function banValidators(uint64[] validatorIDArray) returns()
+func (_Contract *ContractSession) BanValidators(validatorIDArray []uint64) (*types.Transaction, error) {
+	return _Contract.Contract.BanValidators(&_Contract.TransactOpts, validatorIDArray)
+}
+
+// BanValidators is a paid mutator transaction binding the contract method 0x17a6863f.
+//
+// Solidity: function banValidators(uint64[] validatorIDArray) returns()
+func (_Contract *ContractTransactorSession) BanValidators(validatorIDArray []uint64) (*types.Transaction, error) {
+	return _Contract.Contract.BanValidators(&_Contract.TransactOpts, validatorIDArray)
+}
+
 // ClaimRewards is a paid mutator transaction binding the contract method 0xd64bc331.
 //
 // Solidity: function claimRewards(address withdrawalAddress, uint256 accumulatedBalance, bytes32[] merkleProof) returns()
@@ -1118,6 +1139,27 @@ func (_Contract *ContractTransactorSession) TransferOwnership(newOwner common.Ad
 	return _Contract.Contract.TransferOwnership(&_Contract.TransactOpts, newOwner)
 }
 
+// UnbanValidators is a paid mutator transaction binding the contract method 0x0008900a.
+//
+// Solidity: function unbanValidators(uint64[] validatorIDArray) returns()
+func (_Contract *ContractTransactor) UnbanValidators(opts *bind.TransactOpts, validatorIDArray []uint64) (*types.Transaction, error) {
+	return _Contract.contract.Transact(opts, "unbanValidators", validatorIDArray)
+}
+
+// UnbanValidators is a paid mutator transaction binding the contract method 0x0008900a.
+//
+// Solidity: function unbanValidators(uint64[] validatorIDArray) returns()
+func (_Contract *ContractSession) UnbanValidators(validatorIDArray []uint64) (*types.Transaction, error) {
+	return _Contract.Contract.UnbanValidators(&_Contract.TransactOpts, validatorIDArray)
+}
+
+// UnbanValidators is a paid mutator transaction binding the contract method 0x0008900a.
+//
+// Solidity: function unbanValidators(uint64[] validatorIDArray) returns()
+func (_Contract *ContractTransactorSession) UnbanValidators(validatorIDArray []uint64) (*types.Transaction, error) {
+	return _Contract.Contract.UnbanValidators(&_Contract.TransactOpts, validatorIDArray)
+}
+
 // UnsubscribeValidator is a paid mutator transaction binding the contract method 0xc1542c52.
 //
 // Solidity: function unsubscribeValidator(uint64 validatorID) returns()
@@ -1137,6 +1179,27 @@ func (_Contract *ContractSession) UnsubscribeValidator(validatorID uint64) (*typ
 // Solidity: function unsubscribeValidator(uint64 validatorID) returns()
 func (_Contract *ContractTransactorSession) UnsubscribeValidator(validatorID uint64) (*types.Transaction, error) {
 	return _Contract.Contract.UnsubscribeValidator(&_Contract.TransactOpts, validatorID)
+}
+
+// UnsubscribeValidators is a paid mutator transaction binding the contract method 0x3ae15892.
+//
+// Solidity: function unsubscribeValidators(uint64[] validatorIDArray) returns()
+func (_Contract *ContractTransactor) UnsubscribeValidators(opts *bind.TransactOpts, validatorIDArray []uint64) (*types.Transaction, error) {
+	return _Contract.contract.Transact(opts, "unsubscribeValidators", validatorIDArray)
+}
+
+// UnsubscribeValidators is a paid mutator transaction binding the contract method 0x3ae15892.
+//
+// Solidity: function unsubscribeValidators(uint64[] validatorIDArray) returns()
+func (_Contract *ContractSession) UnsubscribeValidators(validatorIDArray []uint64) (*types.Transaction, error) {
+	return _Contract.Contract.UnsubscribeValidators(&_Contract.TransactOpts, validatorIDArray)
+}
+
+// UnsubscribeValidators is a paid mutator transaction binding the contract method 0x3ae15892.
+//
+// Solidity: function unsubscribeValidators(uint64[] validatorIDArray) returns()
+func (_Contract *ContractTransactorSession) UnsubscribeValidators(validatorIDArray []uint64) (*types.Transaction, error) {
+	return _Contract.Contract.UnsubscribeValidators(&_Contract.TransactOpts, validatorIDArray)
 }
 
 // UpdateCheckpointSlotSize is a paid mutator transaction binding the contract method 0x38d092b9.
@@ -1527,6 +1590,140 @@ func (_Contract *ContractFilterer) WatchAddOracleMember(opts *bind.WatchOpts, si
 func (_Contract *ContractFilterer) ParseAddOracleMember(log types.Log) (*ContractAddOracleMember, error) {
 	event := new(ContractAddOracleMember)
 	if err := _Contract.contract.UnpackLog(event, "AddOracleMember", log); err != nil {
+		return nil, err
+	}
+	event.Raw = log
+	return event, nil
+}
+
+// ContractBanValidatorIterator is returned from FilterBanValidator and is used to iterate over the raw logs and unpacked data for BanValidator events raised by the Contract contract.
+type ContractBanValidatorIterator struct {
+	Event *ContractBanValidator // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *ContractBanValidatorIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(ContractBanValidator)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(ContractBanValidator)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *ContractBanValidatorIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *ContractBanValidatorIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// ContractBanValidator represents a BanValidator event raised by the Contract contract.
+type ContractBanValidator struct {
+	ValidatorID uint64
+	Raw         types.Log // Blockchain specific contextual infos
+}
+
+// FilterBanValidator is a free log retrieval operation binding the contract event 0xb6978e4c15338f096fdd02b00c667cb63eeedd4df4f2243213e9371dbc5d1ca7.
+//
+// Solidity: event BanValidator(uint64 validatorID)
+func (_Contract *ContractFilterer) FilterBanValidator(opts *bind.FilterOpts) (*ContractBanValidatorIterator, error) {
+
+	logs, sub, err := _Contract.contract.FilterLogs(opts, "BanValidator")
+	if err != nil {
+		return nil, err
+	}
+	return &ContractBanValidatorIterator{contract: _Contract.contract, event: "BanValidator", logs: logs, sub: sub}, nil
+}
+
+// WatchBanValidator is a free log subscription operation binding the contract event 0xb6978e4c15338f096fdd02b00c667cb63eeedd4df4f2243213e9371dbc5d1ca7.
+//
+// Solidity: event BanValidator(uint64 validatorID)
+func (_Contract *ContractFilterer) WatchBanValidator(opts *bind.WatchOpts, sink chan<- *ContractBanValidator) (event.Subscription, error) {
+
+	logs, sub, err := _Contract.contract.WatchLogs(opts, "BanValidator")
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(ContractBanValidator)
+				if err := _Contract.contract.UnpackLog(event, "BanValidator", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// ParseBanValidator is a log parse operation binding the contract event 0xb6978e4c15338f096fdd02b00c667cb63eeedd4df4f2243213e9371dbc5d1ca7.
+//
+// Solidity: event BanValidator(uint64 validatorID)
+func (_Contract *ContractFilterer) ParseBanValidator(log types.Log) (*ContractBanValidator, error) {
+	event := new(ContractBanValidator)
+	if err := _Contract.contract.UnpackLog(event, "BanValidator", log); err != nil {
 		return nil, err
 	}
 	event.Raw = log
@@ -3029,6 +3226,140 @@ func (_Contract *ContractFilterer) WatchTransferGovernance(opts *bind.WatchOpts,
 func (_Contract *ContractFilterer) ParseTransferGovernance(log types.Log) (*ContractTransferGovernance, error) {
 	event := new(ContractTransferGovernance)
 	if err := _Contract.contract.UnpackLog(event, "TransferGovernance", log); err != nil {
+		return nil, err
+	}
+	event.Raw = log
+	return event, nil
+}
+
+// ContractUnbanValidatorIterator is returned from FilterUnbanValidator and is used to iterate over the raw logs and unpacked data for UnbanValidator events raised by the Contract contract.
+type ContractUnbanValidatorIterator struct {
+	Event *ContractUnbanValidator // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *ContractUnbanValidatorIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(ContractUnbanValidator)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(ContractUnbanValidator)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *ContractUnbanValidatorIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *ContractUnbanValidatorIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// ContractUnbanValidator represents a UnbanValidator event raised by the Contract contract.
+type ContractUnbanValidator struct {
+	ValidatorID uint64
+	Raw         types.Log // Blockchain specific contextual infos
+}
+
+// FilterUnbanValidator is a free log retrieval operation binding the contract event 0xaa0f7dc1145b1a2a0195373eca47d4c7a42be75b0579288456153a416494a581.
+//
+// Solidity: event UnbanValidator(uint64 validatorID)
+func (_Contract *ContractFilterer) FilterUnbanValidator(opts *bind.FilterOpts) (*ContractUnbanValidatorIterator, error) {
+
+	logs, sub, err := _Contract.contract.FilterLogs(opts, "UnbanValidator")
+	if err != nil {
+		return nil, err
+	}
+	return &ContractUnbanValidatorIterator{contract: _Contract.contract, event: "UnbanValidator", logs: logs, sub: sub}, nil
+}
+
+// WatchUnbanValidator is a free log subscription operation binding the contract event 0xaa0f7dc1145b1a2a0195373eca47d4c7a42be75b0579288456153a416494a581.
+//
+// Solidity: event UnbanValidator(uint64 validatorID)
+func (_Contract *ContractFilterer) WatchUnbanValidator(opts *bind.WatchOpts, sink chan<- *ContractUnbanValidator) (event.Subscription, error) {
+
+	logs, sub, err := _Contract.contract.WatchLogs(opts, "UnbanValidator")
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(ContractUnbanValidator)
+				if err := _Contract.contract.UnpackLog(event, "UnbanValidator", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// ParseUnbanValidator is a log parse operation binding the contract event 0xaa0f7dc1145b1a2a0195373eca47d4c7a42be75b0579288456153a416494a581.
+//
+// Solidity: event UnbanValidator(uint64 validatorID)
+func (_Contract *ContractFilterer) ParseUnbanValidator(log types.Log) (*ContractUnbanValidator, error) {
+	event := new(ContractUnbanValidator)
+	if err := _Contract.contract.UnpackLog(event, "UnbanValidator", log); err != nil {
 		return nil, err
 	}
 	event.Raw = log

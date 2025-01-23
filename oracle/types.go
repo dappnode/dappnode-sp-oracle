@@ -48,6 +48,8 @@ const (
 	ManualSubscription Event = 4
 	AutoSubscription   Event = 5
 	Unsubscribe        Event = 6
+	ManualBan          Event = 7
+	ManualUnban        Event = 8
 )
 
 // Block type
@@ -113,6 +115,8 @@ type Events struct {
 	RemoveOracleMember           []*contract.ContractRemoveOracleMember           `json:"remove_oracle_member_events"`
 	TransferGovernance           []*contract.ContractTransferGovernance           `json:"transfer_governance_events"`
 	AcceptGovernance             []*contract.ContractAcceptGovernance             `json:"accept_governance_events"`
+	BanValidator                 []*contract.ContractBanValidator                 `json:"ban_validator_events"`
+	UnbanValidator               []*contract.ContractUnbanValidator               `json:"unban_validator_events"`
 }
 
 // Information of every block from the blockchain. Some fields are optional

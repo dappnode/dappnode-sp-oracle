@@ -1231,6 +1231,194 @@ func Test_BannedValidatorAutoSubs(t *testing.T) {
 	oracle.handleCorrectBlockProposal(block3)
 }
 
+func Test_ManualBanUnbanValidators(t *testing.T) {
+
+	oracle := NewOracle(&Config{
+		CollateralInWei: big.NewInt(1000),
+		Network:         "mainnet",
+	})
+
+	vals := []*v1.Validator{
+		&v1.Validator{
+			Index:  33,
+			Status: v1.ValidatorStateActiveOngoing,
+			Validator: &phase0.Validator{
+				// Valid eth1 address: 0x9427a30991170f917d7b83def6e44d26577871ed
+				WithdrawalCredentials: []byte{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 148, 39, 163, 9, 145, 23, 15, 145, 125, 123, 131, 222, 246, 228, 77, 38, 87, 120, 113, 237},
+				// Valdator pubkey: 0x81aae709e6aee7ed49cd15b941d85b967afcc8b844ee20bc7e13962e8484572c1b43d4be75652119ec353c1a32443e0d
+				PublicKey: phase0.BLSPubKey{129, 170, 231, 9, 230, 174, 231, 237, 73, 205, 21, 185, 65, 216, 91, 150, 122, 252, 200, 184, 68, 238, 32, 188, 126, 19, 150, 46, 132, 132, 87, 44, 27, 67, 212, 190, 117, 101, 33, 25, 236, 53, 60, 26, 50, 68, 62, 13},
+			},
+		},
+	}
+
+	// Now subscribe (but it was already auto subscribed)
+	subs := []*contract.ContractSubscribeValidator{
+		&contract.ContractSubscribeValidator{
+			ValidatorID:            33,
+			SubscriptionCollateral: big.NewInt(1000),
+			Raw:                    types.Log{TxHash: [32]byte{0x1}},
+			Sender:                 common.Address{148, 39, 163, 9, 145, 23, 15, 145, 125, 123, 131, 222, 246, 228, 77, 38, 87, 120, 113, 237},
+		},
+	}
+
+	oracle.handleManualSubscriptions(subs, vals)
+	require.Equal(t, Active, oracle.state.Validators[33].ValidatorStatus)
+
+	bans := []*contract.ContractBanValidator{
+		&contract.ContractBanValidator{
+			ValidatorID: 33,
+			Raw:         types.Log{TxHash: [32]byte{0x1}, BlockNumber: 1},
+		},
+	}
+
+	oracle.handleManualBans(bans)
+	require.Equal(t, Banned, oracle.state.Validators[33].ValidatorStatus)
+
+	unbans := []*contract.ContractUnbanValidator{
+		&contract.ContractUnbanValidator{
+			ValidatorID: 33,
+			Raw:         types.Log{TxHash: [32]byte{0x1}, BlockNumber: 1},
+		},
+	}
+
+	oracle.handleManualUnbans(unbans)
+	require.Equal(t, Active, oracle.state.Validators[33].ValidatorStatus)
+}
+
+
+func TestBanUnbanWithRewards(t *testing.T) {
+
+	oracle := NewOracle(&Config{
+		CollateralInWei: big.NewInt(0),
+		Network:         "mainnet",
+		PoolFeesPercentOver10000: 0, // No fees for the sake of test simplicity
+	})
+
+	vals := []*v1.Validator{
+		&v1.Validator{
+			Index:  33,
+			Status: v1.ValidatorStateActiveOngoing,
+			Validator: &phase0.Validator{
+				WithdrawalCredentials: []byte{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 148, 39, 163, 9, 145, 23, 15, 145, 125, 123, 131, 222, 246, 228, 77, 38, 87, 120, 113, 237},
+				PublicKey: phase0.BLSPubKey{129, 170, 231, 9, 230, 174, 231, 237, 73, 205, 21, 185, 65, 216, 91, 150, 122, 252, 200, 184, 68, 238, 32, 188, 126, 19, 150, 46, 132, 132, 87, 44, 27, 67, 212, 190, 117, 101, 33, 25, 236, 53, 60, 26, 50, 68, 62, 13},
+			},
+		},
+		&v1.Validator{
+			Index:  34,
+			Status: v1.ValidatorStateActiveOngoing,
+			Validator: &phase0.Validator{
+				WithdrawalCredentials: []byte{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 149, 39, 163, 9, 145, 23, 15, 145, 125, 123, 131, 222, 246, 228, 77, 38, 87, 120, 113, 237},
+				PublicKey: phase0.BLSPubKey{128, 170, 231, 9, 230, 174, 231, 237, 73, 205, 21, 185, 65, 216, 91, 150, 122, 252, 200, 184, 68, 238, 32, 188, 126, 19, 150, 46, 132, 132, 87, 44, 27, 67, 212, 190, 117, 101, 33, 25, 236, 53, 60, 26, 50, 68, 62, 13},
+			},
+		},
+		&v1.Validator{
+			Index:  35,
+			Status: v1.ValidatorStateActiveOngoing,
+			Validator: &phase0.Validator{
+				WithdrawalCredentials: []byte{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 150, 39, 163, 9, 145, 23, 15, 145, 125, 123, 131, 222, 246, 228, 77, 38, 87, 120, 113, 237},
+				PublicKey: phase0.BLSPubKey{127, 170, 231, 9, 230, 174, 231, 237, 73, 205, 21, 185, 65, 216, 91, 150, 122, 252, 200, 184, 68, 238, 32, 188, 126, 19, 150, 46, 132, 132, 87, 44, 27, 67, 212, 190, 117, 101, 33, 25, 236, 53, 60, 26, 50, 68, 62, 13},
+			},
+		},
+
+		&v1.Validator{
+			Index:  36,
+			Status: v1.ValidatorStateActiveOngoing,
+			Validator: &phase0.Validator{
+				WithdrawalCredentials: []byte{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 151, 39, 163, 9, 145, 23, 15, 145, 125, 123, 131, 222, 246, 228, 77, 38, 87, 120, 113, 237},
+				PublicKey: phase0.BLSPubKey{127, 170, 231, 9, 230, 174, 231, 237, 73, 205, 21, 185, 65, 216, 91, 150, 122, 252, 200, 184, 68, 238, 32, 188, 126, 19, 150, 46, 132, 132, 87, 44, 27, 67, 212, 190, 117, 101, 33, 25, 236, 53, 60, 26, 50, 68, 62, 13},
+			},
+		},
+	}
+
+	subs := []*contract.ContractSubscribeValidator{
+		&contract.ContractSubscribeValidator{
+			ValidatorID:            33,
+			SubscriptionCollateral: big.NewInt(0),
+			Raw:                    types.Log{TxHash: [32]byte{0x1}},
+			Sender:                 common.Address{148, 39, 163, 9, 145, 23, 15, 145, 125, 123, 131, 222, 246, 228, 77, 38, 87, 120, 113, 237},
+		},
+		&contract.ContractSubscribeValidator{
+			ValidatorID:            34,
+			SubscriptionCollateral: big.NewInt(0),
+			Raw:                    types.Log{TxHash: [32]byte{0x1}},
+			Sender:                 common.Address{149, 39, 163, 9, 145, 23, 15, 145, 125, 123, 131, 222, 246, 228, 77, 38, 87, 120, 113, 237},
+		},
+		&contract.ContractSubscribeValidator{
+			ValidatorID:            35,
+			SubscriptionCollateral: big.NewInt(0),
+			Raw:                    types.Log{TxHash: [32]byte{0x1}},
+			Sender:                 common.Address{150, 39, 163, 9, 145, 23, 15, 145, 125, 123, 131, 222, 246, 228, 77, 38, 87, 120, 113, 237},
+		},
+		&contract.ContractSubscribeValidator{
+			ValidatorID:            36,
+			SubscriptionCollateral: big.NewInt(0),
+			Raw:                    types.Log{TxHash: [32]byte{0x1}},
+			Sender:                 common.Address{151, 39, 163, 9, 145, 23, 15, 145, 125, 123, 131, 222, 246, 228, 77, 38, 87, 120, 113, 237},
+		},
+	}
+
+	oracle.handleManualSubscriptions(subs, vals)
+	require.Equal(t, Active, oracle.state.Validators[33].ValidatorStatus)
+	require.Equal(t, Active, oracle.state.Validators[34].ValidatorStatus)
+	require.Equal(t, Active, oracle.state.Validators[35].ValidatorStatus)
+	require.Equal(t, Active, oracle.state.Validators[36].ValidatorStatus)
+
+	// Give rewards to all validators.
+	oracle.increaseValidatorAccumulatedRewards(33, big.NewInt(110000))
+	oracle.increaseValidatorPendingRewards(33, big.NewInt(10000))
+
+	oracle.increaseValidatorAccumulatedRewards(34, big.NewInt(120000))
+	oracle.increaseValidatorPendingRewards(34, big.NewInt(10000))
+
+	oracle.increaseValidatorAccumulatedRewards(35, big.NewInt(130000))
+	oracle.increaseValidatorPendingRewards(35, big.NewInt(10000))
+
+	oracle.increaseValidatorAccumulatedRewards(36, big.NewInt(140000))
+	oracle.increaseValidatorPendingRewards(36, big.NewInt(10000))
+
+	bans := []*contract.ContractBanValidator{
+		&contract.ContractBanValidator{
+			ValidatorID: 33,
+			Raw:         types.Log{TxHash: [32]byte{0x1}, BlockNumber: 1},
+		},
+		&contract.ContractBanValidator{
+			ValidatorID: 34,
+			Raw:         types.Log{TxHash: [32]byte{0x1}, BlockNumber: 1},
+		},
+	}
+
+	oracle.handleManualBans(bans)
+	require.Equal(t, Banned, oracle.state.Validators[33].ValidatorStatus)
+
+	// Test rewards after the validator ban. 
+	require.Equal(t, big.NewInt(110000), oracle.state.Validators[33].AccumulatedRewardsWei)
+	require.Equal(t, big.NewInt(0), oracle.state.Validators[33].PendingRewardsWei)
+
+	require.Equal(t, big.NewInt(120000), oracle.state.Validators[34].AccumulatedRewardsWei)
+	require.Equal(t, big.NewInt(0), oracle.state.Validators[34].PendingRewardsWei)
+
+	require.Equal(t, big.NewInt(130000), oracle.state.Validators[35].AccumulatedRewardsWei)
+	require.Equal(t, big.NewInt(20000), oracle.state.Validators[35].PendingRewardsWei)
+
+	require.Equal(t, big.NewInt(140000), oracle.state.Validators[36].AccumulatedRewardsWei)
+	require.Equal(t, big.NewInt(20000), oracle.state.Validators[36].PendingRewardsWei)
+
+	unbans := []*contract.ContractUnbanValidator{
+		&contract.ContractUnbanValidator{
+			ValidatorID: 33,
+			Raw:         types.Log{TxHash: [32]byte{0x1}, BlockNumber: 1},
+		},
+	}
+
+	oracle.handleManualUnbans(unbans)
+	require.Equal(t, Active, oracle.state.Validators[33].ValidatorStatus)
+	require.Equal(t, big.NewInt(0), oracle.state.Validators[33].PendingRewardsWei)
+	require.Equal(t, big.NewInt(110000), oracle.state.Validators[33].AccumulatedRewardsWei)
+
+}
+
+
+
 func Test_handleManualSubscriptions_AlreadySubscribed_WithBalance(t *testing.T) {
 	// Test a subscription to an already subscribed validator, that already
 	// has some balance. Assert that the existing balance is not touched and the
