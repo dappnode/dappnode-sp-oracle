@@ -12,18 +12,19 @@ import (
 )
 
 type CliConfig struct {
-	DryRun            bool
-	UpdaterKeyFile    string
-	UpdaterKeyPass    string
-	NumRetries        int
-	ConsensusEndpoint string
-	ExecutionEndpoint string
-	PoolAddress       string
-	LogLevel          string
-	ApiPort           int
-	MetricsPort       int
-	CheckPointSyncUrl string
-	RelayersEndpoints []string
+	DryRun              bool
+	UpdaterKeyFile      string
+	UpdaterKeyPass      string
+	NumRetries          int
+	ConsensusEndpoint   string
+	ExecutionEndpoint   string
+	PoolAddress         string
+	EigenManagerAddress string
+	LogLevel            string
+	ApiPort             int
+	MetricsPort         int
+	CheckPointSyncUrl   string
+	RelayersEndpoints   []string
 }
 
 // By default the release is a custom build. CI takes care of upgrading it with
@@ -46,6 +47,7 @@ func NewCliConfig() (*CliConfig, error) {
 	var consensusEndpoint = flag.String("consensus-endpoint", "", "Ethereum consensus endpoint")
 	var executionEndpoint = flag.String("execution-endpoint", "", "Ethereum execution endpoint")
 	var poolAddress = flag.String("pool-address", "", "Address of the smoothing pool contract")
+	var eigenManagerAddress = flag.String("eigen-manager-address", "", "Address of the eigen manager contract")
 	var relayersEndpointsStr = flag.String("relayers-endpoints", "", "Comma-separated list of relayers endpoints")
 
 	flag.Parse()
@@ -77,6 +79,10 @@ func NewCliConfig() (*CliConfig, error) {
 		return nil, errors.New("pool-address: " + *poolAddress + " is not a valid address")
 	}
 
+	if !common.IsHexAddress(*eigenManagerAddress) {
+		return nil, errors.New("eigen-manager-address: " + *eigenManagerAddress + " is not a valid address")
+	}
+
 	// Post process the relayers endpoints, make it a slice
 	relayersEndpoints := strings.Split(*relayersEndpointsStr, ",")
 
@@ -98,18 +104,19 @@ func NewCliConfig() (*CliConfig, error) {
 	}
 
 	cliConf := &CliConfig{
-		DryRun:            *dryRun,
-		UpdaterKeyFile:    *updaterKeystoreFile,
-		UpdaterKeyPass:    *updaterKeystorePass,
-		NumRetries:        *numRetries,
-		ConsensusEndpoint: *consensusEndpoint,
-		ExecutionEndpoint: *executionEndpoint,
-		PoolAddress:       *poolAddress,
-		LogLevel:          *logLevel,
-		ApiPort:           *apiPort,
-		MetricsPort:       *metricsPort,
-		CheckPointSyncUrl: *checkPointSyncUrl,
-		RelayersEndpoints: relayersEndpoints,
+		DryRun:              *dryRun,
+		UpdaterKeyFile:      *updaterKeystoreFile,
+		UpdaterKeyPass:      *updaterKeystorePass,
+		NumRetries:          *numRetries,
+		ConsensusEndpoint:   *consensusEndpoint,
+		ExecutionEndpoint:   *executionEndpoint,
+		PoolAddress:         *poolAddress,
+		EigenManagerAddress: *eigenManagerAddress,
+		LogLevel:            *logLevel,
+		ApiPort:             *apiPort,
+		MetricsPort:         *metricsPort,
+		CheckPointSyncUrl:   *checkPointSyncUrl,
+		RelayersEndpoints:   relayersEndpoints,
 	}
 	logConfig(cliConf)
 	return cliConf, nil
@@ -117,17 +124,18 @@ func NewCliConfig() (*CliConfig, error) {
 
 func logConfig(cfg *CliConfig) {
 	log.WithFields(log.Fields{
-		"DryRun":            cfg.DryRun,
-		"UpdaterKeyFile":    cfg.UpdaterKeyFile,
-		"UpdaterKeyPass":    "hidden",
-		"NumRetries":        cfg.NumRetries,
-		"ConsensusEndpoint": cfg.ConsensusEndpoint,
-		"ExecutionEndpoint": cfg.ExecutionEndpoint,
-		"PoolAddress":       cfg.PoolAddress,
-		"LogLevel":          cfg.LogLevel,
-		"ApiPort":           cfg.ApiPort,
-		"MetricsPort":       cfg.MetricsPort,
-		"CheckPointSyncUrl": cfg.CheckPointSyncUrl,
-		"RelayersEndpoints": cfg.RelayersEndpoints,
+		"DryRun":              cfg.DryRun,
+		"UpdaterKeyFile":      cfg.UpdaterKeyFile,
+		"UpdaterKeyPass":      "hidden",
+		"NumRetries":          cfg.NumRetries,
+		"ConsensusEndpoint":   cfg.ConsensusEndpoint,
+		"ExecutionEndpoint":   cfg.ExecutionEndpoint,
+		"PoolAddress":         cfg.PoolAddress,
+		"EigenManagerAddress": cfg.EigenManagerAddress,
+		"LogLevel":            cfg.LogLevel,
+		"ApiPort":             cfg.ApiPort,
+		"MetricsPort":         cfg.MetricsPort,
+		"CheckPointSyncUrl":   cfg.CheckPointSyncUrl,
+		"RelayersEndpoints":   cfg.RelayersEndpoints,
 	}).Info("Cli Config:")
 }

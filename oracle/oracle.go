@@ -20,6 +20,7 @@ import (
 	"github.com/attestantio/go-eth2-client/spec/phase0"
 	"github.com/dappnode/mev-sp-oracle/contract"
 	"github.com/dappnode/mev-sp-oracle/utils"
+	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	log "github.com/sirupsen/logrus"
 )
@@ -29,12 +30,15 @@ var StateFolder = "oracle-data"
 var StateJsonName = "state.json"
 
 type GetSetOfValidatorsFunc func(valIndices []phase0.ValidatorIndex, slot string, opts ...retry.Option) (map[phase0.ValidatorIndex]*v1.Validator, error)
-
+type GetOwnerToPodFunc func(address common.Address, opts ...retry.Option) (common.Address, error)
+type GetValidatorRestakedEvents func(podAddress common.Address, opts ...retry.Option) ([]*big.Int, error)
 type Oracle struct {
-	cfg                *Config
-	state              *OracleState
-	mutex              sync.RWMutex
-	getSetOfValidators GetSetOfValidatorsFunc
+	cfg                        *Config
+	state                      *OracleState
+	mutex                      sync.RWMutex
+	getSetOfValidators         GetSetOfValidatorsFunc
+	getOwnerToPod              GetOwnerToPodFunc
+	getValidatorRestakedEvents GetValidatorRestakedEvents
 }
 
 // Fork 1 changes two things:
@@ -77,6 +81,7 @@ func NewOracle(cfg *Config) *Oracle {
 		cfg:                cfg,
 		state:              state,
 		getSetOfValidators: nil,
+		getOwnerToPod:      nil,
 	}
 
 	return oracle
@@ -84,6 +89,14 @@ func NewOracle(cfg *Config) *Oracle {
 
 func (or *Oracle) SetGetSetOfValidatorsFunc(oc GetSetOfValidatorsFunc) {
 	or.getSetOfValidators = oc
+}
+
+func (or *Oracle) SetOwnerToPodFunc(oc GetOwnerToPodFunc) {
+	or.getOwnerToPod = oc
+}
+
+func (or *Oracle) SetValidatorRestakedEventsFunc(oc GetValidatorRestakedEvents) {
+	or.getValidatorRestakedEvents = oc
 }
 
 // Returns the state of the oracle, containing all the information about the
@@ -1015,18 +1028,57 @@ func (or *Oracle) handleManualSubscriptions(
 		}
 
 		// Subscription received from an address that is not the validator withdrawal address
+		// AND sender is not the owner of a pod which staked validators include this transaction validator index
 		if !utils.Equals(sender, validatorWithdrawal) {
-			log.WithFields(log.Fields{
-				"BlockNumber":         sub.Raw.BlockNumber,
-				"Collateral":          sub.SubscriptionCollateral,
-				"TxHash":              sub.Raw.TxHash,
-				"ValidatorIndex":      valIdx,
-				"Sender":              sender,
-				"ValidatorWithdrawal": validatorWithdrawal,
-			}).Warn("[Subscription]: but tx sender is not the validator withdrawal address, skipping")
-			// Fees go to the pool.
-			or.sendRewardToPool(collateral)
-			continue
+
+			// Check if the sender is the owner of a pod which staked validators include this transaction validator index
+			// If it is, we allow the subscription
+			podAddress, err := or.getOwnerToPod(sub.Sender)
+			if err != nil {
+				log.Fatal("Error getting pod address from owner: ", err)
+			}
+
+			// if returned address is null, means the sender is not the owner of a pod
+			if podAddress == (common.Address{}) {
+				log.WithFields(log.Fields{
+					"BlockNumber":         sub.Raw.BlockNumber,
+					"Collateral":          sub.SubscriptionCollateral,
+					"TxHash":              sub.Raw.TxHash,
+					"ValidatorIndex":      valIdx,
+					"Sender":              sender,
+					"ValidatorWithdrawal": validatorWithdrawal,
+				}).Warn("[Subscription] TX Sender is not the validator withdrawal address and has no EigenPod ownership, skipping")
+				or.sendRewardToPool(collateral)
+				continue
+			}
+			//filter events of eigenPod contract at address "podAddress" by ValidatorRestaked event and return the validators found
+			validators, err := or.getValidatorRestakedEvents(podAddress)
+			if err != nil {
+				log.Fatal("Error getting ValidatorRestaked events: ", err)
+			}
+			// Check if the sender is the owner of a pod which staked validators include this transaction validator index
+			// If it is, we allow the subscription. valIdx is uint64 and returned validators is an array of bigints, so we need to convert
+			isOwner := false
+			for _, v := range validators {
+				if valIdx == v.Uint64() {
+					isOwner = true
+					break
+				}
+			}
+
+			if !isOwner {
+				log.WithFields(log.Fields{
+					"BlockNumber":         sub.Raw.BlockNumber,
+					"Collateral":          sub.SubscriptionCollateral,
+					"TxHash":              sub.Raw.TxHash,
+					"ValidatorIndex":      valIdx,
+					"Sender":              sender,
+					"ValidatorWithdrawal": validatorWithdrawal,
+				}).Warn("[Subscription]: TX sender not the validator withdrawal address and it's pod does not own the validator, skipping")
+				// Fees go to the pool.
+				or.sendRewardToPool(collateral)
+				continue
+			}
 		}
 
 		// Subscription received for a banned validator
